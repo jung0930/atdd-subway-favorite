@@ -78,15 +78,4 @@ public class GithubClientTest {
                 .isInstanceOf(FailIssueAccessTokenException.class);
     }
 
-
-//    @Test
-//    void requestGithubProfile() {
-//        GithubClient githubClient = new GithubClient();
-//
-//        // GithubProfileResponse githubProfileResponse = githubClient.requestGithubProfile("access_token");
-//
-//        // assertThat
-//    }
-
-
 }

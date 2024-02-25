@@ -18,26 +18,26 @@ public class MemberController {
     }
 
     @PostMapping("/members")
-    public ResponseEntity<Void> createMember(@RequestBody MemberRequest request) {
+    public ResponseEntity<MemberResponse> createMember(@RequestBody MemberRequest request) {
         MemberResponse member = memberService.createMember(request);
-        return ResponseEntity.created(URI.create("/members/" + member.getId())).build();
+        return ResponseEntity.created(URI.create("/members/" + member.getId())).body(member);
     }
 
     @GetMapping("/members/{id}")
-    public ResponseEntity<MemberResponse> findMember(@PathVariable Long id) {
-        MemberResponse member = memberService.findMember(id);
+    public ResponseEntity<MemberResponse> findMember(@AuthenticationPrincipal LoginMember loginMember, @PathVariable Long id) {
+        MemberResponse member = memberService.findMember(loginMember, id);
         return ResponseEntity.ok().body(member);
     }
 
     @PutMapping("/members/{id}")
-    public ResponseEntity<MemberResponse> updateMember(@PathVariable Long id, @RequestBody MemberRequest param) {
-        memberService.updateMember(id, param);
+    public ResponseEntity<MemberResponse> updateMember(@AuthenticationPrincipal LoginMember loginMember, @PathVariable Long id, @RequestBody MemberRequest param) {
+        memberService.updateMember(loginMember, id, param);
         return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/members/{id}")
-    public ResponseEntity<MemberResponse> deleteMember(@PathVariable Long id) {
-        memberService.deleteMember(id);
+    public ResponseEntity<MemberResponse> deleteMember(@AuthenticationPrincipal LoginMember loginMember, @PathVariable Long id) {
+        memberService.deleteMember(loginMember, id);
         return ResponseEntity.noContent().build();
     }
 

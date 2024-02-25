@@ -16,7 +16,7 @@ import java.util.List;
 import static nextstep.common.Constant.*;
 import static nextstep.favorite.acceptance.FavoriteAcceptanceStep.*;
 import static nextstep.member.acceptance.AuthAcceptanceStep.로그인_성공;
-import static nextstep.member.acceptance.MemberSteps.회원_생성_요청;
+import static nextstep.member.acceptance.MemberSteps.회원_생성됨;
 import static nextstep.subway.acceptance.line.LineAcceptanceStep.지하철_노선_생성됨;
 import static nextstep.subway.acceptance.station.StationAcceptanceStep.지하철_역_생성됨;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -39,8 +39,8 @@ public class FavoriteAcceptanceTest extends AcceptanceTest {
 
     @BeforeEach
     protected void beforeEach() {
-        회원_생성_요청(홍길동_이메일, 홍길동_비밀번호, 홍길동_나이);
-        회원_생성_요청(임꺽정_이메일, 임꺽정_비밀번호, 임꺽정_나이);
+        회원_생성됨(홍길동_이메일, 홍길동_비밀번호, 홍길동_나이);
+        회원_생성됨(임꺽정_이메일, 임꺽정_비밀번호, 임꺽정_나이);
         홍길동_토큰 = 로그인_성공(홍길동_이메일, 홍길동_비밀번호);
         임꺽정_토큰 = 로그인_성공(임꺽정_이메일, 임꺽정_비밀번호);
 

@@ -30,7 +30,8 @@ class AuthAcceptanceTest extends AcceptanceTest {
         String 토큰 = 깃허브_로그인_성공(사용자1_코드);
 
         // then
-        깃허브_로그인_성공_검증(토큰, GithubResponses.사용자_홍길동);
+        MemberResponse 사용자_조회_응답 = 사용자_조회됨(토큰);
+        깃허브_로그인_성공_검증(토큰, GithubResponses.사용자_홍길동, 사용자_조회_응답);
     }
 
     /**
@@ -57,19 +58,19 @@ class AuthAcceptanceTest extends AcceptanceTest {
     @Test
     void 회원가입하지않고_깃허브_로그인을_하면_회원가입() {
         // given
-        String accessToken = 깃허브_로그인_성공(GithubResponses.사용자_임꺽정.getCode());
+        String 토큰 = 깃허브_로그인_성공(GithubResponses.사용자_임꺽정.getCode());
 
         // thwn
-        MemberResponse 사용자_조회_응답 = 사용자_조회됨(accessToken);
+        MemberResponse 사용자_조회_응답 = 사용자_조회됨(토큰);
         String 사용자_이메일 = 사용자_조회_응답.getEmail();
 
         // then
         assertThat(사용자_이메일).isEqualTo(임꺽정_이메일);
     }
 
-    void 깃허브_로그인_성공_검증(String accessToken, GithubResponses githubResponses) {
+    void 깃허브_로그인_성공_검증(String accessToken, GithubResponses githubResponses, MemberResponse memberResponse) {
         assertThat(accessToken).isNotBlank();
-        assertThat(accessToken).isEqualTo(githubResponses.getAccessToken());
+        assertThat(githubResponses.getEmail()).isEqualTo(memberResponse.getEmail());
     }
 
     void 깃허브_로그인_실패_검증(ExtractableResponse<Response> extractableResponse, HttpStatus status) {
